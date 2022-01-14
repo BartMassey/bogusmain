@@ -14,9 +14,25 @@ impl std::process::Termination for Status {
 #[macro_export]
 macro_rules! status {
     ($code:expr) => {
-        $crate::Status($code, None)
+        $crate::Status(
+            $code,
+            std::option::Option::None,
+        )
     };
-    ($code:expr, $fmt:literal $(, $arg:expr)*$(,)?) => {
-        $crate::Status($code, Some(format!($fmt $(, $arg)*)))
+    ($code:expr, $fmt:expr) => {
+        $crate::Status(
+            $code,
+            std::option::Option::Some(
+                std::string::String::from($fmt),
+            ),
+        )
+    };
+    ($code:expr, $fmt:literal $(, $arg:expr)+$(,)?) => {
+        $crate::Status(
+            $code,
+            std::option::Option::Some(
+                format!($fmt $(, $arg)*),
+            ),
+        )
     };
 }

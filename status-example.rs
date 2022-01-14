@@ -10,8 +10,11 @@ fn main() -> Status {
             println!("{}", args[0]);
             status!(0)
         }
+        2 => {
+            status!(-1, &args[1])
+        }
         _ => {
-            status!(-1, "unexpected argument {}", args[1])
+            status!(-1, "unexpected argument {}", args[2])
         }
     }
 }
